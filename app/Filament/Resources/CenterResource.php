@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TreatmentResource\Pages;
-use App\Filament\Resources\TreatmentResource\RelationManagers;
-use App\Models\Treatment;
+use App\Filament\Resources\CenterResource\Pages;
+use App\Filament\Resources\CenterResource\RelationManagers;
+use App\Models\Center;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TreatmentResource extends Resource
+class CenterResource extends Resource
 {
-    protected static ?string $model = Treatment::class;
+    protected static ?string $model = Center::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -23,9 +23,7 @@ class TreatmentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('treatment')
-                ->required()
-                ->maxLength(255),
+                //
             ]);
     }
 
@@ -39,6 +37,7 @@ class TreatmentResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -58,9 +57,10 @@ class TreatmentResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTreatments::route('/'),
-            'create' => Pages\CreateTreatment::route('/create'),
-            'edit' => Pages\EditTreatment::route('/{record}/edit'),
+            'index' => Pages\ListCenters::route('/'),
+            'create' => Pages\CreateCenter::route('/create'),
+            'view' => Pages\ViewCenter::route('/{record}'),
+            'edit' => Pages\EditCenter::route('/{record}/edit'),
         ];
     }
 }
